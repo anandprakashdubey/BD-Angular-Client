@@ -1,0 +1,9 @@
+<nav class="navbar navbar-expand navbar-light bg-light">
+    <a class="navbar-brand">{{pageTitle}}</a>
+    <ul class="nav nav-pills">
+        <li><a [routerLink]="['/welcome']" class="nav-link">Home</a></li>
+        <li><a [routerLink]="['/batches']" class="nav-link">Batches</a></li> 
+    </ul>
+</nav>
+
+<router-outlet></router-outlet> 

@@ -1,0 +1,41 @@
+<div class="container-fluid">
+    <a [routerLink]="['/batches']">Back</a>
+    <br/>
+    <div class="row">   
+        <div class="col-md-12">
+            <div class="card">                      
+                <div class="card-body">
+                    <div classs="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>No. of batches</th>
+                                    <th>No. per batches</th>
+                                    <th>Generated No.</th>                                
+                                    <th>Sum of Generated No.</th>
+                                    <th>Multiplied No.</th>
+                                    <th>Sum of Multiplied No.</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf='apiResponse && apiResponse.length'>
+                                <tr *ngFor='let data of apiResponse'>
+                                    <td>{{data.x}}</td>
+                                    <td>{{data.y}}</td>
+                                    <td>{{data.generatedNumberList}}</td>                                
+                                    <td>{{data.sumOfGeneratedNumbers}}</td>
+                                    <td>{{data.multipliedNumberList}}</td>
+                                    <td>{{data.sumOfMultipliedNumbers}}</td>
+                                </tr>
+                            </tbody>                       
+                        </table>
+            
+                    </div>
+                </div>  
+            </div>  
+        </div>
+    </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">  
+    <p style="color: white">Please Wait. </p>  
+</ngx-spinner> 

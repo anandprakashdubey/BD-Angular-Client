@@ -1,0 +1,108 @@
+<div class="row container-fluid">
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-header">
+                Batch Process
+            </div>            
+            <div class="card-body">
+                <form novalidate
+                    (ngSubmit)="save()"
+                    [formGroup]="batchForm">
+            
+                    <div class="form-group row mb-4">
+                        <label class="col-md-6 col-form-label"
+                            for="X">No. of Batches</label>
+                        <div class="col-md-3">
+                            <input class="form-control"
+                                id="X"
+                                type="number"                                                 
+                                formControlName="X"
+                                [ngClass]="{'is-invalid': (batchForm.get('X').touched || batchForm.get('X').dirty) && !batchForm.get('X').valid }" />
+                            <span class="invalid-feedback">
+                                <span *ngIf="batchForm.get('X').errors?.required">
+                                Please enter number of batches.
+                                </span>
+                                <span *ngIf="batchForm.get('X').errors?.minlength">
+                                The number of batches must be longer than 0 characters.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+            
+                    <div class="form-group row mb-4">
+                        <label class="col-md-6 col-form-label"
+                            for="Y">No. Per Batches</label>
+                        <div class="col-md-3">
+                            <input class="form-control"
+                                id="Y"
+                                type="number"                                                   
+                                formControlName="Y"
+                                [ngClass]="{'is-invalid': (batchForm.get('Y').touched || batchForm.get('Y').dirty) && !batchForm.get('Y').valid }" />
+                            <span class="invalid-feedback">
+                                <span *ngIf="batchForm.get('Y').errors?.required">
+                                    Please enter number per batches.
+                                </span>
+                                <span *ngIf="batchForm.get('Y').errors?.minlength">
+                                    The number per batches must be longer than 0 characters.
+                                </span>
+                            </span>
+                        </div>
+                    </div> 
+                
+                    <button class="btn btn-primary mr-3"
+                        type="submit"
+                        style="width:80px"
+                        [title]="batchForm.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                        [disabled]="!batchForm.valid">
+                        Save
+                    </button>                    
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9">
+        <div class="card">
+            <div class="card-header">
+                API Response
+                ( Pending Batch - {{pendingBatch}} )
+                <div *ngIf="isPending" style="text-align: right; font-weight: bold;">
+                    <span>Process started....</span>
+                </div>
+            </div>            
+            <div class="card-body">
+                <div classs="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>No. of batches</th>
+                                <th>No. per batches</th>
+                                <th>Generated No.</th>                                
+                                <th>Sum of Generated No.</th>
+                                <th>Multiplied No.</th>
+                                <th>Sum of Multiplied No.</th>
+                            </tr>
+                        </thead>
+                        <tbody *ngIf='apiResponse && apiResponse.length'>
+                            <tr *ngFor='let data of apiResponse'>                                
+                                <td><a [routerLink]="['/batch', {batchID: createdBatchID, currentBatch: data.currentBatch}]">View</a></td>
+                                <td>{{data.x}}</td>
+                                <td>{{data.y}}</td>
+                                <td>{{data.generatedNumberList}}</td>                                
+                                <td>{{data.sumOfGeneratedNumbers}}</td>
+                                <td>{{data.multipliedNumberList}}</td>
+                                <td>{{data.sumOfMultipliedNumbers}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="7" style="text-align: right;">Total Sum - {{totalBatchSum}}</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+        
+                </div>
+            </div>  
+        </div>  
+    </div>
+</div>
